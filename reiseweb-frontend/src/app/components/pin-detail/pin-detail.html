@@ -1,0 +1,75 @@
+<div class="pin-detail-page">
+    <div class="back-nav">
+      <a routerLink="/" class="back-link">← Zurück zur Karte</a>
+    </div>
+
+    @if (pin() && !loading()) {
+      <div class="pin-content">
+        <!-- Header -->
+        <div class="pin-header">
+          @if (!editing()) {
+            <h1>{{ pin()!.title }}</h1>
+            <div class="header-actions">
+              <button class="btn btn-secondary" (click)="startEditing()">Bearbeiten</button>
+              <button class="btn btn-danger" (click)="deletePin()">Löschen</button>
+            </div>
+          } @else {
+            <input type="text" class="title-input" [(ngModel)]="editTitle" placeholder="Titel">
+          }
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Ort</h3>
+            <p>{{ pin()!.cityName || 'Unbekannt' }}</p>
+            <p class="secondary">{{ pin()!.countryName || 'Unbekannt' }}</p>
+            <p class="coords">{{ pin()!.latitude.toFixed(4) }}, {{ pin()!.longitude.toFixed(4) }}</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Besucht</h3>
+            @if (!editing()) {
+              <p>{{ pin()!.visitDate ? formatDate(pin()!.visitDate) : 'Nicht angegeben' }}</p>
+            } @else {
+              <input type="date" [(ngModel)]="editDate">
+            }
+          </div>
+
+          <div class="info-card">
+            <h3>Bewertung</h3>
+            @if (!editing()) {
+              <p>{{ pin()!.rating ? pin()!.rating + '/5' : 'Keine' }}</p>
+            } @else {
+              <select [(ngModel)]="editRating">
+                <option [value]="0">Keine</option>
+                <option [value]="1">1</option>
+                <option [value]="2">2</option>
+                <option [value]="3">3</option>
+                <option [value]="4">4</option>
+                <option [value]="5">5</option>
+              </select>
+            }
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="notes-section">
+          <h3>Notizen</h3>
+          @if (!editing()) {
+            <p class="notes-text">{{ pin()!.notes || 'Keine Notizen vorhanden.' }}</p>
+          } @else {
+            <textarea [(ngModel)]="editNotes" placeholder="Deine Erfahrungen und Erinnerungen..."></textarea>
+          }
+        </div>
+
+        <!-- Edit Actions -->
+        @if (editing()) {
+          <div class="edit-actions">
+            <button class="btn btn-secondary" (click)="cancelEditing()">Abbrechen</button>
+            <button class="btn btn-primary" (click)="saveChanges()">Speichern</button>
+          </div>
+        }
+      </div>
+    }
+</div>

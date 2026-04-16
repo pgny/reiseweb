@@ -1,0 +1,77 @@
+<div class="country-info">
+  @if (loading()) {
+    <div class="loading">
+      <p>Lädt Länderinformationen...</p>
+    </div>
+  }
+
+  @if (countryInfo() && !loading()) {
+    <div class="country-details">
+      <div class="country-header">
+        @if (countryInfo()!.flagUrl) {
+          <img [src]="countryInfo()!.flagUrl" alt="Flag" class="flag">
+        }
+        <div class="header-text">
+          <h2>{{ countryInfo()!.name }}</h2>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        @if (countryInfo()!.capital) {
+          <div class="info-item">
+            <span class="label">Hauptstadt</span>
+            <span class="value">{{ countryInfo()!.capital }}</span>
+          </div>
+        }
+        @if (countryInfo()!.region) {
+          <div class="info-item">
+            <span class="label">Region</span>
+            <span class="value">{{ countryInfo()!.region }}{{ countryInfo()!.subregion ? ' / ' + countryInfo()!.subregion : '' }}</span>
+          </div>
+        }
+        @if (countryInfo()!.population) {
+          <div class="info-item">
+            <span class="label">Einwohner</span>
+            <span class="value">{{ formatPopulation(countryInfo()!.population) }}</span>
+          </div>
+        }
+        @if (countryInfo()!.area) {
+          <div class="info-item">
+            <span class="label">Fläche</span>
+            <span class="value">{{ formatArea(countryInfo()!.area) }} km²</span>
+          </div>
+        }
+        @if (countryInfo()!.languages.length) {
+          <div class="info-item">
+            <span class="label">Sprachen</span>
+            <span class="value">{{ countryInfo()!.languages.join(', ') }}</span>
+          </div>
+        }
+        @if (countryInfo()!.currencies.length) {
+          <div class="info-item">
+            <span class="label">Währung</span>
+            <span class="value">{{ countryInfo()!.currencies[0] }}</span>
+          </div>
+        }
+        @if (countryInfo()!.timezones.length) {
+          <div class="info-item">
+            <span class="label">Zeitzone</span>
+            <span class="value">{{ countryInfo()!.timezones[0] }}</span>
+          </div>
+        }
+      </div>
+
+      @if (countryInfo()!.googleMapsUrl) {
+        <a [href]="countryInfo()!.googleMapsUrl" target="_blank" class="maps-link">
+          Auf Google Maps ansehen
+        </a>
+      }
+    </div>
+  }
+
+  @if (!countryInfo() && !loading()) {
+    <div class="no-selection">
+      <p>Klicke auf ein Land auf der Karte, um Informationen anzuzeigen.</p>
+    </div>
+  }
+</div>

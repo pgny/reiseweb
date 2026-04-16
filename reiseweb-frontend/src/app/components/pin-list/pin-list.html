@@ -1,0 +1,70 @@
+<div class="pin-list">
+    <div class="search-section">
+        <input type="text" [(ngModel)]="searchQuery" (input)="filterPins()" placeholder="Pins durchsuchen...">
+    </div>
+
+    <div class="stats">
+        <span class="stat">
+            <strong>{{ filteredPins().length }}</strong> Pins
+        </span>
+        <span class="stat">
+            <strong>{{ uniqueCountries() }}</strong> Länder
+        </span>
+    </div>
+
+    <div class="pins">
+        @for (pin of filteredPins(); track pin.id) {
+        <div class="pin-card" 
+            [class.selected]="pin.id === selectedPinId"
+            [id]="'pin-' + pin.id"
+            (click)="onPinClick(pin)">
+            <div class="pin-header">
+                <h3>{{ pin.title }}</h3>
+                @if (pin.rating) {
+                <span class="rating">{{ pin.rating }}/5
+                </span>
+                }
+            </div>
+
+            <div class="pin-meta">
+                @if (pin.cityName) {
+                <span class="location">{{ pin.cityName }}</span>
+                }
+                @if (pin.countryName) {
+                <span class="country">{{ pin.countryName }}</span>
+                }
+            </div>
+
+            @if (pin.visitDate) {
+            <div class="date">
+                {{ formatDate(pin.visitDate) }}
+            </div>
+            }
+
+            @if (pin.notes) {
+            <p class="notes">{{ truncateNotes(pin.notes) }}</p>
+            }
+
+            @if (pin.images.length) {
+            <div class="image-count">
+                {{ pin.images.length }} {{ pin.images.length === 1 ? 'Bild' : 'Bilder' }}
+            </div>
+            }
+
+            <div class="pin-actions">
+                <a class="btn-icon" [routerLink]="['/pin', pin.id]" (click)="$event.stopPropagation()">
+                    Details
+                </a>
+                <button class="btn-icon danger" (click)="onDeleteClick(pin.id); $event.stopPropagation()">
+                    Löschen
+                </button>
+            </div>
+        </div>
+        } @empty {
+        <div class="no-pins">
+            <p>Noch keine Pins vorhanden.</p>
+            <p class="hint">Klicke auf die Karte, um deinen ersten Pin zu erstellen.</p>
+        </div>
+        }
+    </div>
+</div>

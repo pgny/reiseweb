@@ -1,0 +1,56 @@
+<div class="map-page">                                                                                                
+    <div class="sidebar">
+      <div class="sidebar-tabs">
+        <button [class.active]="sidebarTab === 'pins'" (click)="sidebarTab = 'pins'">Meine Pins</button>
+        <button [class.active]="sidebarTab === 'country'" (click)="sidebarTab = 'country'">Land-Info</button>
+      </div>
+      @if (sidebarTab === 'pins') {
+        <app-pin-list
+          [pins]="pins"
+          [loading]="loading"
+          [selectedPinId]="selectedPinId"
+          (pinSelected)="onPinSelected($event)"
+          (pinDeleted)="onPinDeleted($event)">
+        </app-pin-list>
+      }
+      @if (sidebarTab === 'country') {
+        <app-country-info
+          [countryCode]="selectedCountryCode">
+        </app-country-info>
+      }
+    </div>                                                                                                              
+    <div id="map"></div>
+    <button class="pin-mode-btn" [class.active]="pinMode" (click)="togglePinMode()">
+      {{ pinMode ? 'Pin-Modus an' : 'Pin setzen' }}
+    </button>
+    @if (showForm) {                                                                                                      
+    <div class="pin-form">
+      <h3>Neuer Pin</h3>                                                                                                
+      <p class="coords">{{ newPin.latitude.toFixed(4) }}, {{ newPin.longitude.toFixed(4) }}</p>                         
+                                                                                                                        
+      <label>Titel *</label>                                                                                            
+      <input type="text" [(ngModel)]="newPin.title" placeholder="z.B. Urlaub in Paris">                                 
+                                                                                                                        
+      <label>Notizen</label>
+      <textarea [(ngModel)]="newPin.notes" placeholder="Was hast du erlebt?"></textarea>                                
+                                                                                                                        
+      <label>Bewertung</label>
+      <select [(ngModel)]="newPin.rating">                                                                              
+        <option [value]="0">Keine</option>
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>                                                                                                         
+                  
+      <label>Besuchsdatum</label>                                                                                       
+      <input type="date" [(ngModel)]="newPin.visitDate">
+                                                                                                                        
+      <div class="form-buttons">                                                                                        
+        <button class="btn-save" (click)="savePin()" [disabled]="!newPin.title">Speichern</button>
+        <button class="btn-cancel" (click)="cancelForm()">Abbrechen</button>                                            
+      </div>                                                                                                            
+    </div>                                                                                                              
+  }                                                                                                    
+  </div>  
