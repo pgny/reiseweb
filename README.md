@@ -1,6 +1,6 @@
 # Reiseweb
 
-Eine Full-Stack Reisekarten-Anwendung zum Verfolgen besuchter Orte auf einer interaktiven Weltkarte. Pins auf besuchte Städte setzen, Notizen und Bewertungen hinzufügen und Länderinformationen erkunden.
+Eine Fullstack Reisekarte zum Verfolgen besuchter Orte auf einer interaktiven Karte. Pin auf einen besuchten Orte setzen, Notiz und Bewertung hinzufügen und Länderinformationen bekommen.
 
 ## Tech Stack
 
@@ -75,3 +75,8 @@ ng serve
 - Bilder-Upload pro Pin
 - Besuchte Länder werden auf der Karte hervorgehoben
 - Deutsche Benutzeroberfläche
+
+## TODO
+
+- Gemini API Integration
+- Von H2 auf Liquibase
