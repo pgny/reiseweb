@@ -72,11 +72,11 @@ ng serve
 - Reise-Pins mit Notizen, Bewertungen (1-5) und Besuchsdatum
 - Länderinfos über REST Countries API (Flagge, Bevölkerung, Sprachen, etc.)
 - Automatische Land- und Stadterkennung via Reverse Geocoding
-- Bilder-Upload pro Pin
 - Besuchte Länder werden auf der Karte hervorgehoben
 - Deutsche Benutzeroberfläche
 
 ## TODO
 
+- Bilder-Upload pro Pin
 - Gemini API Integration
 - Von H2 auf Liquibase
